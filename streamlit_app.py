@@ -6,7 +6,7 @@ url = "http://egosgame.net/file.txt"
 r = requests.get(url)
 #r.text
 #r.text.split(";")
-print(pd.Series(r.text.split(";")).value_counts())
+st.write(pd.Series(r.text.split(";")).value_counts())
 
 
 st.write("Here's our first attempt at using data to create a table:")
