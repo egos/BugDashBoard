@@ -3,14 +3,13 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import plotly.express as px
-from st_aggrid import GridOptionsBuilder ,AgGrid, GridUpdateMode
 st.set_page_config(layout="wide")
 
 @st.cache(allow_output_mutation=True)
 def load_list():    
     url = "http://egosgame.net/"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text).find_all("a")
+    soup = BeautifulSoup(r.text, features="lxml").find_all("a")
     FileList = [item['href']  for item in soup if ".json" in item.get('href')]
     return FileList
 
@@ -57,8 +56,6 @@ fig = px.line(df, x="time", y="Nbug", color='P_log')
 st.plotly_chart(fig, use_container_width=True)
 #st.write(df)
 dfx = df.groupby(colP)[colVal].max().reset_index().set_index('P_log').sort_index()
-AgGrid(dfx)
-
 st.write(dfx)
 
 
