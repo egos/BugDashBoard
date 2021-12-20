@@ -9,7 +9,7 @@ st.set_page_config(layout="wide")
 def load_list():    
     url = "http://egosgame.net/"
     r = requests.get(url)
-    soup = BeautifulSoup(r.text, features="lxml").find_all("a")
+    soup = BeautifulSoup(r.text, "html.parser").find_all("a")
     FileList = [item['href']  for item in soup if ".json" in item.get('href')]
     return FileList
 
